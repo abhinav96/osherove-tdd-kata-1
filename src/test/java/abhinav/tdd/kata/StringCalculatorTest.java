@@ -5,49 +5,42 @@ import org.junit.Test;
 
 public class StringCalculatorTest 
 {
+    private void testAdd(final String input, final int expectedOutput) {
+        final StringCalculator calculator = new StringCalculator();
+        final int actualOutput = calculator.add(input);
+        assertEquals(expectedOutput, actualOutput);
+    }
+
     @Test
     public void emptyStringShouldReturnZero()
     {
-        final StringCalculator calculator = new StringCalculator();
-        final int answer = calculator.add("");
-        assertEquals(0, answer);
+        testAdd("", 0);
     }
 
     @Test
     public void singleNumberShouldReturnTheNumberItself()
     {
-        final StringCalculator calculator = new StringCalculator();
-        final int inputNum = 5;
-        final int answer = calculator.add(String.valueOf(inputNum));
-        assertEquals(inputNum, answer);
+        testAdd("5", 5);
     }
 
     @Test
-    public void multipleNumbersShouldReturnTheirSum() {
-        final StringCalculator calculator = new StringCalculator();
-        final int sum = calculator.add("1,2");
-        assertEquals(3, sum);
+    public void twoNumbersShouldReturnTheirSum() {
+        testAdd("1,2", 3);
     }
 
     @Test
     public void onlySpacesShouldReturnZero() {
-        final StringCalculator calculator = new StringCalculator();
-        final int answer = calculator.add("   ");
-        assertEquals(0, answer);
+        testAdd("   ", 0);
     }
 
     @Test
     public void singleNumberWithExtraSpacesShouldReturnTheNumber() {
-        final StringCalculator calculator = new StringCalculator();
-        final int answer = calculator.add("  1 ");
-        assertEquals(1, answer);
+        testAdd("  1 ", 1);
     }
 
     @Test
     public void twoNumbersWithSpacesShouldReturnTheirSum() {
-        final StringCalculator calculator = new StringCalculator();
-        final int answer = calculator.add(" 1 , 2 ");
-        assertEquals(3, answer);
+        testAdd(" 1 , 2 ", 3);
     }
 
 }
