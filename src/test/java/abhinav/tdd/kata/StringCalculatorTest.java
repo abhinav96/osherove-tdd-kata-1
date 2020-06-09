@@ -12,4 +12,13 @@ public class StringCalculatorTest
         final int answer = calculator.add("");
         assertEquals(0, answer);
     }
+
+    @Test
+    public void singleNumberShouldReturnTheNumberItself()
+    {
+        final StringCalculator calculator = new StringCalculator();
+        final int inputNum = 5;
+        final int answer = calculator.add(String.valueOf(inputNum));
+        assertEquals(inputNum, answer);
+    }
 }
