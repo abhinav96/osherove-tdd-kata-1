@@ -1,14 +1,15 @@
 package abhinav.tdd.kata;
 
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 public class StringCalculatorTest 
 {
     @Test
-    public void shouldAnswerWithTrue()
+    public void emptyStringShouldReturnZero()
     {
-        assertTrue( true );
+        final StringCalculator calculator = new StringCalculator();
+        final int answer = calculator.add("");
+        assertEquals(0, answer);
     }
 }
