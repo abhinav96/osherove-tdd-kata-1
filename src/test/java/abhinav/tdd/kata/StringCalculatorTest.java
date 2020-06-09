@@ -21,4 +21,11 @@ public class StringCalculatorTest
         final int answer = calculator.add(String.valueOf(inputNum));
         assertEquals(inputNum, answer);
     }
+
+    @Test
+    public void multipleNumbersShouldReturnTheirSum() {
+        final StringCalculator calculator = new StringCalculator();
+        final int sum = calculator.add("1,2");
+        assertEquals(3, sum);
+    }
 }
