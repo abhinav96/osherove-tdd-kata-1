@@ -25,12 +25,18 @@ public class StringCalculator
 
     private String preProcessInput(String input) {
         return input.startsWith("//") ? 
-            input.substring(4) : input;
+            input.substring(input.indexOf('\n')) : input;
     }
 
     private String getSeparator(String input) {
-        return input.startsWith("//") ?
-            Pattern.quote(input.substring(2, 3)) : DEFAULT_SEPARATOR;
+        if (input.startsWith("//")) {
+            String separator = input.substring(2, input.indexOf('\n'));
+            if (separator.startsWith("[") && separator.endsWith("]")) {
+                separator = separator.substring(1, separator.length() - 1);
+            }
+            return Pattern.quote(separator);
+        }
+        return DEFAULT_SEPARATOR;
     }
 
     private int addNumbers(final List<Integer> parsedNumbers) {
