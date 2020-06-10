@@ -84,4 +84,10 @@ public class StringCalculatorTest
         testAdd("//*\n1002*5", 5);
     }
 
+    @Test
+    public void anyLengthSeparatorShouldBeAllowed() {
+        testAdd("//[***]\n1***2***3", 6);
+        testAdd("//[...]\n1...2...3", 6);
+    }
+
 }
