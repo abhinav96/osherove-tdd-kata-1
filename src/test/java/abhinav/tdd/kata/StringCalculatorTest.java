@@ -78,4 +78,10 @@ public class StringCalculatorTest
         }
     }
 
+    @Test
+    public void numbersGreaterThan1000ShouldBeIgnored() {
+        testAdd("1001,2", 2);
+        testAdd("//*\n1002*5", 5);
+    }
+
 }
