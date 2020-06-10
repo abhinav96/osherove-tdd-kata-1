@@ -50,4 +50,10 @@ public class StringCalculatorTest
         testAdd("1,1,1,1", 4);
     }
 
+    @Test
+    public void numbersSeparatedByNewLineShouldReturnTheirSum() {
+        testAdd("1\n2\n3", 6);
+        testAdd("1\n2,3", 6);
+    }
+
 }
