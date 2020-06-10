@@ -1,12 +1,15 @@
 package abhinav.tdd.kata;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StringCalculator
 {
+    private static final String BETWEEN_SQUARE_BRACES = "\\[(.*?)\\]";
     private static final String DEFAULT_SEPARATOR = "[,\n]";
 
     public int add(final String input) {
@@ -30,11 +33,16 @@ public class StringCalculator
 
     private String getSeparator(String input) {
         if (input.startsWith("//")) {
-            String separator = input.substring(2, input.indexOf('\n'));
-            if (separator.startsWith("[") && separator.endsWith("]")) {
-                separator = separator.substring(1, separator.length() - 1);
+            final String separatorConfig = input.substring(2, input.indexOf('\n'));
+            final Matcher matcher = Pattern.compile(BETWEEN_SQUARE_BRACES).matcher(separatorConfig);
+            final List<String> separators = new ArrayList<>();
+            while (matcher.find()) {
+                separators.add("(" + Pattern.quote(matcher.group(1)) + ")");
             }
-            return Pattern.quote(separator);
+            if (separators.isEmpty()) {
+                return Pattern.quote(separatorConfig);
+            }
+            return String.join("|", separators);
         }
         return DEFAULT_SEPARATOR;
     }
@@ -56,7 +64,7 @@ public class StringCalculator
     }
 
     private List<Integer> parseToIntegers(String input, String separator) {
-        final String[] separatedNums = input.split(separator);
+        final String[] separatedNums = input.split(separator, -1);
         final List<Integer> allNumbers =
          Arrays.stream(separatedNums)
                 .map(n -> n.trim())
