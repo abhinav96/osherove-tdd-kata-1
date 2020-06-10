@@ -90,4 +90,10 @@ public class StringCalculatorTest
         testAdd("//[...]\n1...2...3", 6);
     }
 
+    @Test
+    public void multipleSeparatorsShouldBeAllowed() {
+        testAdd("//[*][%]\n1*2%3", 6);
+        testAdd("//[**][%%]\n1**2%%3", 6);
+    }
+
 }
