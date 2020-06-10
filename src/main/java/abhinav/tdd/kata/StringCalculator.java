@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class StringCalculator
 {
-    private static final String SEPARATOR = ",";
+    private static final String SEPARATOR = "[,\n]";
 
     public int add(final String numbers) {
         if (!numbers.trim().isEmpty()) {
