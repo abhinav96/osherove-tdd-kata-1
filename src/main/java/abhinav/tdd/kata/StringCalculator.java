@@ -27,24 +27,37 @@ public class StringCalculator
     }
 
     private String preProcessInput(String input) {
+        // remove separator config line if present
         return input.startsWith("//") ? 
             input.substring(input.indexOf('\n')) : input;
     }
 
     private String getSeparator(String input) {
         if (input.startsWith("//")) {
+            // custom separator is passed as first line
             final String separatorConfig = input.substring(2, input.indexOf('\n'));
-            final Matcher matcher = Pattern.compile(BETWEEN_SQUARE_BRACES).matcher(separatorConfig);
-            final List<String> separators = new ArrayList<>();
-            while (matcher.find()) {
-                separators.add("(" + Pattern.quote(matcher.group(1)) + ")");
-            }
-            if (separators.isEmpty()) {
+
+            final List<String> separatorsInBraces = getAllSeparatorsInBraces(separatorConfig);
+            if (separatorsInBraces.isEmpty()) {
+                // separator is a single character without braces
                 return Pattern.quote(separatorConfig);
             }
-            return String.join("|", separators);
+
+            // join all separators with OR condition
+            return String.join("|", separatorsInBraces);
         }
         return DEFAULT_SEPARATOR;
+    }
+
+    private List<String> getAllSeparatorsInBraces(final String separatorConfig) {
+        final Matcher matcher = Pattern.compile(BETWEEN_SQUARE_BRACES).matcher(separatorConfig);
+        final List<String> separators = new ArrayList<>();
+
+        // put each separator in its own group
+        while (matcher.find()) {
+            separators.add("(" + Pattern.quote(matcher.group(1)) + ")");
+        }
+        return separators;
     }
 
     private int addNumbers(final List<Integer> parsedNumbers) {
