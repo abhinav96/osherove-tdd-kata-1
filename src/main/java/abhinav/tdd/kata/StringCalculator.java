@@ -1,5 +1,7 @@
 package abhinav.tdd.kata;
 
+import java.util.Arrays;
+
 public class StringCalculator
 {
     private static final String SEPARATOR = ",";
@@ -9,7 +11,8 @@ public class StringCalculator
             if (isSingleNumber(numbers)) {
                 return Integer.parseInt(numbers.trim());
             }
-            return addTwoNumbers(numbers);
+            final String[] separatedNums = numbers.split(SEPARATOR);
+            return Arrays.stream(separatedNums).map(n -> n.trim()).mapToInt(Integer::parseInt).sum();
         }
         return 0;
     }
