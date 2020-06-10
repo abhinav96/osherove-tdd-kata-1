@@ -34,7 +34,10 @@ public class StringCalculator
     }
 
     private int addNumbers(final List<Integer> parsedNumbers) {
-        return parsedNumbers.stream().collect(Collectors.summingInt(Integer::valueOf));
+        return parsedNumbers
+            .stream()
+            .filter(i -> i <= 1000)
+            .collect(Collectors.summingInt(Integer::valueOf));
     }
 
     private void validateNumbers(final List<Integer> parsedNumbers) {
