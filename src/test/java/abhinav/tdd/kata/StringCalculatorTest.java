@@ -1,6 +1,8 @@
 package abhinav.tdd.kata;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 public class StringCalculatorTest 
@@ -62,6 +64,18 @@ public class StringCalculatorTest
         testAdd("//;\n1;2;3", 6);
         testAdd("//*\n1*2", 3);
         testAdd("//*\n1*2*3", 6);
+    }
+
+    @Test
+    public void negativeNumbersShouldThrowException() {
+        final StringCalculator calculator = new StringCalculator();
+        try {
+            calculator.add("1,-2,3,-4");
+            assertTrue(false);
+        } catch(Exception e) {
+            // expected to fail
+            assertTrue(e.getMessage().contains("-2") && e.getMessage().contains("-4"));
+        }
     }
 
 }
