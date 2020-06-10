@@ -56,4 +56,12 @@ public class StringCalculatorTest
         testAdd("1\n2,3", 6);
     }
 
+    @Test
+    public void customDelimiterInFirstLineShouldBeHonoured() {
+        testAdd("//;\n1;2", 3);
+        testAdd("//;\n1;2;3", 6);
+        testAdd("//*\n1*2", 3);
+        testAdd("//*\n1*2*3", 6);
+    }
+
 }
