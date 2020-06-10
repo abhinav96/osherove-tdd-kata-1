@@ -1,7 +1,9 @@
 package abhinav.tdd.kata;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class StringCalculator
 {
@@ -16,10 +18,21 @@ public class StringCalculator
                 input = numbers.substring(4);
             }
             final String[] separatedNums = input.split(separator);
-            return Arrays.stream(separatedNums)
+            final List<Integer> allNumbers =
+             Arrays.stream(separatedNums)
                     .map(n -> n.trim())
                     .mapToInt(Integer::parseInt)
-                    .sum();
+                    .boxed()
+                    .collect(Collectors.toList());
+            
+            final List<Integer> negativeNumbers =
+                allNumbers.stream().filter(i -> i < 0).collect(Collectors.toList());
+            
+            if (negativeNumbers.size() > 0) {
+                throw new IllegalArgumentException("negatives not allowed, " + negativeNumbers);
+            }
+
+            return allNumbers.stream().collect(Collectors.summingInt(Integer::valueOf));
         }
         return 0;
     }
